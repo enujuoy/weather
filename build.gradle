@@ -1,0 +1,45 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.1'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.weather'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	runtimeOnly 'mysql:mysql-connector-java'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+	implementation 'com.squareup.retrofit2:converter-gson:2.9.0' //json 방식을 자바 클래스 방식으로 바꿔주는 역할
+	implementation 'com.squareup.retrofit2:converter-gson:2.9.0'//요청,응답 객체를 파싱해주는 라이브러리(gson을 이용함)
+	implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'	//선택사항 : http 통신 로그를 출력한다
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
