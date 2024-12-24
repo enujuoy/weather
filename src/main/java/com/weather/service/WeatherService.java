@@ -7,8 +7,9 @@ import com.weather.repository.WeatherDataRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import org.springframework.beans.factory.annotation.Value;
 import java.time.LocalDateTime;
-
+import com.weather.config.
 
 @Service
 public class WeatherService {
@@ -16,7 +17,8 @@ public class WeatherService {
     private final RestTemplate restTemplate;
     private final CityRepository cityRepository;
     private WeatherDataRepository weatherDataRepository;
-    private final  String apiKey = "f808bb107fd0625cf6852b1dcbec5d5b";
+    @Value("{weather-api-key}")
+    private String weather_api_key;
     private final  String apiUrl = "http://api.openweathermap.org/data/2.5/weather";
 
     public WeatherService(RestTemplate restTemplate, CityRepository cityRepository) {
@@ -24,7 +26,7 @@ public class WeatherService {
         this.cityRepository = cityRepository;
     }
     public WeatherData getWeather(String cityName) {
-        String url = String.format("%s?q=%s&appid=%s&units=metric", apiUrl, cityName, apiKey);
+        String url = String.format("%s?q=%s&appid=%s&units=metric", apiUrl, cityName, weather_api_key);
         var response = restTemplate.getForObject(url, WeatherResponse.class);
 
         if (response != null) {
