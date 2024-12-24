@@ -9,16 +9,14 @@ import org.springframework.web.client.RestTemplate;
 
 import org.springframework.beans.factory.annotation.Value;
 import java.time.LocalDateTime;
-import com.weather.config.
 
-@Service
 public class WeatherService {
 
     private final RestTemplate restTemplate;
     private final CityRepository cityRepository;
     private WeatherDataRepository weatherDataRepository;
-    @Value("{weather-api-key}")
-    private String weather_api_key;
+    @Value("{weather.api.key}")
+    private String weatherApiKey;
     private final  String apiUrl = "http://api.openweathermap.org/data/2.5/weather";
 
     public WeatherService(RestTemplate restTemplate, CityRepository cityRepository) {
